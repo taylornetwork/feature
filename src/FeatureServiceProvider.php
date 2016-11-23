@@ -3,7 +3,6 @@
 namespace TaylorNetwork\Feature;
 
 use Illuminate\Support\ServiceProvider;
-use App;
 
 class FeatureServiceProvider extends ServiceProvider
 {
@@ -14,7 +13,7 @@ class FeatureServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/config/feature.php', 'feature');
     }
 
     /**
@@ -24,7 +23,7 @@ class FeatureServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('Feature', function(){
+        $this->app->bind('Feature', function(){
             return new Feature;
         });
     }

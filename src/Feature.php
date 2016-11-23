@@ -2,59 +2,46 @@
 
 namespace TaylorNetwork\Feature;
 
-use Jenssegers\Agent\Agent;
-
 class Feature
 {
-    /**
-     * User agent class
-     *
-     * @var Agent
-     */
-    public $agent;
+    protected $instances;
 
-    /**
-     * Feature constructor.
-     */
+    protected $classes;
+
     public function __construct()
     {
-        $this->agent = new Agent();
+        foreach(config('feature.dependencies', []) as $accessAs => $dependency)
+        {
+            $this->initialize($this->instances[is_string($accessAs) ? $accessAs : $dependency], $dependency);
+        }
+
+        foreach(config('feature.classes', []) as $accessAs => $class)
+        {
+            $this->initialize($this->instances[is_string($accessAs) ? $accessAs : last(explode('\\', $class))], $class);
+        }
     }
 
-    /**
-     * Determine if device is capable of a feature
-     *
-     * @param string $of
-     * @return bool
-     */
-    public function isCapable($of)
+    protected function initialize($property, $class)
     {
-        $capable = true;
-        switch($of)
-        {
-            case 'sweetalert':
-                if($this->agent->is('iPhone') && $this->agent->version('Safari') < 8)
-                {
-                    $capable = false;
-                }
-                break;
-        }
-        return $capable;
+        $this->$property = new $class;
+        return $this;
     }
 
-    /**
-     * Use Sweet Alert features.
-     *
-     * @param string|null $appendTrue Append if true.
-     * @param string|null $appendFalse Append if false.
-     * @return string|null
-     */
-    public function useSweetAlert($appendTrue = null, $appendFalse = null)
+    public function getInstanceOf($name)
     {
-        if(!$this->isCapable('sweetalert'))
+        if(array_key_exists($name, $this->instances))
         {
-            return $appendFalse;
+            return $this->instances[$name];
         }
-        return $appendTrue;
+        return null;
+    }
+
+    public function __get($name)
+    {
+        if(array_key_exists($name, $this->classes))
+        {
+            return $this->classes[$name];
+        }
+        return null;
     }
 }

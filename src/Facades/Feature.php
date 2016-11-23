@@ -13,6 +13,6 @@ class Feature extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return "Feature";
+        return 'Feature';
     }
 }
