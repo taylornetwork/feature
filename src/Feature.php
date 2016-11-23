@@ -130,6 +130,6 @@ class Feature
      */
     public function __call($class, $arguments)
     {
-        $this->getClass($class);
+        return $this->getClass($class);
     }
 }
