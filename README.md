@@ -178,8 +178,8 @@ Returns
 
 ``` php
 [
-	'SweetAlert' => App\Features\sweetAlert {#xxx},
-	'swal' => App\Features\sweetAlert {#xxx},
+	'SweetAlert' => App\Features\SweetAlert {#xxx},
+	'swal' => App\Features\SweetAlert {#xxx},
 ]
 ```
 
@@ -235,6 +235,8 @@ class ExampleFeatureClass extends BaseFeature
 - [Sam Taylor][link-author]
 
 ## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 [link-swal]: https://limonte.github.io/sweetalert2
 [link-tn-name-format]: https://github.com/taylornetwork/name-formatter
