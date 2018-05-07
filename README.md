@@ -1,3 +1,9 @@
+
+
+*This package is abandonded and no longer supported*
+
+---
+
 # Feature for Laravel
 
 A package that provides a facade to easily access logic to determine if a feature is usable.
